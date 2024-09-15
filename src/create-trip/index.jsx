@@ -48,7 +48,7 @@ function CreateTrip() {
     onError: (error) => console.log(error),
     redirectUri: window.location.hostname === 'localhost'
       ? 'http://localhost:5173/auth/callback'  // Local development URL
-      : 'https://https://isha3-d3tp.vercel.app/auth/callback', // Production URL on Vercel
+      : 'https://https://hiii-delta.vercel.app/auth/callback', // Production URL on Vercel
   });
 
   const OnGenerateTrip = async () => {
