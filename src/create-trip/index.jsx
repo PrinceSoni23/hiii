@@ -30,7 +30,7 @@ function CreateTrip() {
   const [formData, setFormData] = useState([]);
   const [loading, setLoading] = useState(false);
   const [openDailog, setOpenDailog] = useState(false);
-  const navigate=useNavigate();
+  const navigate = useNavigate();
 
   const handleInputChange = (name, value) => {
     setFormData({
@@ -46,6 +46,9 @@ function CreateTrip() {
   const login = useGoogleLogin({
     onSuccess: (codeResp) => GetUserProfile(codeResp),
     onError: (error) => console.log(error),
+    redirectUri: window.location.hostname === 'localhost'
+      ? 'http://localhost:5173/auth/callback'  // Local development URL
+      : 'https://https://isha3-d3tp.vercel.app/auth/callback', // Production URL on Vercel
   });
 
   const OnGenerateTrip = async () => {
@@ -93,13 +96,13 @@ function CreateTrip() {
       id: docId,
     });
     setLoading(false);
-    navigate('/view-trip/'+docId);
+    navigate('/view-trip/' + docId);
   };
 
   const GetUserProfile = (tokenInfo) => {
     axios
       .get(
-        `https://www.googleapis.com/oauth2/v1/userinfo?acess_token=${tokenInfo?.access_token}`,
+        `https://www.googleapis.com/oauth2/v1/userinfo?access_token=${tokenInfo?.access_token}`,
         {
           headers: {
             Authorization: `Bearer ${tokenInfo?.access_token}`,
@@ -191,7 +194,7 @@ function CreateTrip() {
         </div>
       </div>
       <div className="my-10 justify-end flex">
-        <Button disables={loading} onClick={OnGenerateTrip}>
+        <Button disabled={loading} onClick={OnGenerateTrip}>
           {loading ? (
             <AiOutlineLoading3Quarters className="h-7 w-7 animate-spin" />
           ) : (
